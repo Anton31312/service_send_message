@@ -1,0 +1,30 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+  <div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'mailing:create_mailing_config' %}">Добавить рассылку</a>
+  </div>
+  {% for object in object_list %}
+    <div class="col-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header text-center">
+          <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+        </div>
+
+        <div class="card-body">
+          <p class="card-text">{{ object.clients }}</p>
+          <p class="card-text">{{ object.date_start }}</p>
+          <p class="card-text">{{ object.period }}</p>
+          <p class="card-text">{{ object.status }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:mailing_config_detail' object.pk %}">Просмотр</a>
+              <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:update_mailing_config' object.pk  %}">Изменить</a>
+              <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-danger" href="{% url 'mailing:delete_mailing_config' object.pk %}">Удалить</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

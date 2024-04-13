@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="auto">
+  <head>
+    <script src="{% static 'js/color-modes.js'%}"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Fedyaev Anton" />
+    <title>FasterMailing</title>
+
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" />
+
+    <meta name="theme-color" content="#712cf9" />
+  </head>
+  <body>
+    {% include 'mailing/includes/inc_main_menu.html' %}
+    <main>
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ title }}</h1>
+            <p class="lead text-body-secondary">Сервис самой быстрой рассылки на западных землях!</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="row">
+          {% block content %}
+
+          {% endblock %}
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-body-secondary py-5">
+      <div class="container">
+        <p class="float-end mb-1">
+          <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">
+          &copy; FedASCreated 2023 - {% now 'Y' %}
+        </p>
+      </div>
+    </footer>
+    <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+  </body>
+</html>

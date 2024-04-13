@@ -1,0 +1,20 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+  <div class="col-12 form-control">
+    <div class="card box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+      </div>
+      <div class="card-body">
+        <p class="list-unstyled mt-3 mb-4 text-start m-3">
+          Клиент участвующие в рассылке: {{ object.clients }}
+          Дата начала: {{ object.date_start }}
+          Период: {{ object.period }}
+          Статус рассылки: {{ object.status }}
+        </p>
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'mailing:mailing_config' %}">Назад к списку рассылок</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

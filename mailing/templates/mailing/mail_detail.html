@@ -1,0 +1,17 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+  <div class="col-12 form-control">
+    <div class="card box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+      </div>
+      <div class="card-body">
+        <p class="list-unstyled mt-3 mb-4 text-start m-3">
+          Тело сообщение: {{ object.body_mail }}
+        </p>
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'mailing:mail' %}">Назад к списку сообщений</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+
+<div class="jumbotron">
+    <h2 class="mb-4">Статистика сервиса</h2>
+    <p class="lead">Количество рассылок всего:  {{mail_count}}</p>
+    <p class="lead">Количество активных рассылок: {{active_mail_count}}</p>
+    <p class="lead">Количество уникальных клиентов для рассылок: {{client_count}}</p>
+</div>
+
+<!--
+<div class="row">
+    {% for object in object_list %}
+    {% include 'mailing/includes/inc_blog.html' with object=object %}
+    {% endfor %}
+</div>
+-->
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'mailing/base.html' %}
+{% load crispy_forms_tags %}
+{% crispy form %}
+{% block content %}
+  <div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3 class="card-title">
+              {% if object %}
+                Клиент
+              {% else %}
+                Добавить клиента
+              {% endif %}
+            </h3>
+          </div>
+
+          <div class="card-body">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
+              {% if object %}
+                Сохранить
+              {% else %}
+                Создать
+              {% endif %}
+            </button>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3 class="card-title">Данные о рассылке</h3>
+          </div>
+
+          <div class="card-body">
+            {{ formset.management_form }}
+            {% for form in formset.forms %}
+              {{ form.as_p }}
+            {% endfor %}
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
