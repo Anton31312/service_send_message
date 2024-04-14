@@ -1,0 +1,30 @@
+{% extends 'mailing/base.html' %}
+{% load static %}
+{% block content%}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{object.title }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <p> {{object.body}}</p>
+                        <p> Дата публикации: {{object.date_is_published}}</p>
+                        <img class="card-img-top"
+                             src="/media/{{object.preview}}"
+                             alt="Card image cap">
+                    </ul>
+                </div>
+
+            </div>
+            <div class="card-footer"></div>
+            Просмотры: {{ object.views_count }}
+        </div>
+    </div>
+</div>
+{% endblock %}

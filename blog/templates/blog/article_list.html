@@ -1,0 +1,16 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+
+
+<div class="row">
+    {% for object in object_list %}
+    <div class="col-lg-4">
+        <h2> {{object|title}}</h2>
+        <p> {{object.body|slice:300}}</p>
+        <p><a class="btn btn-primary" href="{% url 'blog:article/view' object.pk %}" role="button">Подробнее &raquo;</a></p>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

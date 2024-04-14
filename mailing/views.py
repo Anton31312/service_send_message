@@ -8,6 +8,8 @@ from mailing import models
 from mailing.forms import ClientForm, MailForm, MailingConfigForm
 from mailing.runapscheduler import get_cache_for_mailings
 
+from blog.models import Article
+
 # Index app
 class IndexView(TemplateView):
     template_name = 'mailing/index.html'
@@ -20,7 +22,7 @@ class IndexView(TemplateView):
         context_data['mail_count'] = get_cache_for_mailings()
         context_data['active_mail_count'] = len(models.MailingConfig.objects.filter(is_active=True))
         context_data['client_count'] = len(models.Client.objects.all())
-        # context_data['object_list'] = random.sample(list(Blog.objects.all()), 3)
+        context_data['object_list'] = random.choices(list(Article.objects.all()), k=3)
 
         return context_data
 
@@ -46,10 +48,10 @@ class ClientListView(ListView):
         'title': 'Ваши клиенты',
     }
 
-    # def get_queryset(self, **kwargs):
-    #     if self.request.user.is_superuser or self.request.user.is_staff:
-    #         return models.Client.objects.all()
-    #     return models.Client.objects.filter(owner=self.request.user)
+    def get_queryset(self, **kwargs):
+        if self.request.user.is_superuser or self.request.user.is_staff:
+            return models.Client.objects.all()
+        return models.Client.objects.filter(owner=self.request.user)
 
 class ClientDetailView(DetailView):
     model = models.Client
@@ -59,11 +61,11 @@ class ClientCreateView(CreateView):
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client')
 
-    # def form_valid(self, form):
-    #     self.object = form.save()
-    #     self.object.owner = self.request.user
-    #     self.object.save()
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 class ClientUpdateView(UpdateView):
     model = models.Client
@@ -81,10 +83,10 @@ class MailListView(ListView):
         'title': 'Сообщения для рассылки',
     }
 
-    # def get_queryset(self, **kwargs):
-    #     if self.request.user.is_superuser or self.request.user.is_staff:
-    #         return models.Mail.objects.all()
-    #     return models.Mail.objects.filter(owner=self.request.user)
+    def get_queryset(self, **kwargs):
+        if self.request.user.is_superuser or self.request.user.is_staff:
+            return models.Mail.objects.all()
+        return models.Mail.objects.filter(owner=self.request.user)
 
 class MailDetailView(DetailView):
     model = models.Mail
@@ -94,11 +96,11 @@ class MailCreateView(CreateView):
     form_class = MailForm
     success_url = reverse_lazy('mailing:mail') 
 
-    # def form_valid(self, form):
-    #     self.object = form.save()
-    #     self.object.owner = self.request.user
-    #     self.object.save()
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 class MailUpdateView(UpdateView):
     model = models.Mail
@@ -116,10 +118,10 @@ class MailingConfigListView(ListView):
         'title': "Рассылки",
     }
 
-    # def get_queryset(self, **kwargs):
-    #     if self.request.user.is_superuser or self.request.user.is_staff:
-    #         return models.MailingConfig.objects.all()
-    #     return models.MailingConfig.objects.filter(owner=self.request.user)
+    def get_queryset(self, **kwargs):
+        if self.request.user.is_superuser or self.request.user.is_staff:
+            return models.MailingConfig.objects.all()
+        return models.MailingConfig.objects.filter(owner=self.request.user)
 
 class MailingConfigDetailView(DetailView):
     model = models.MailingConfig
@@ -134,11 +136,11 @@ class MailingConfigCreateView(CreateView):
         kwargs.update({'request': self.request})
         return kwargs
 
-    # def form_valid(self, form):
-    #     self.object = form.save()
-    #     self.object.owner = self.request.user
-    #     self.object.save()
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 class MailingConfigUpdateView(UpdateView):
     model = models.MailingConfig

@@ -11,7 +11,7 @@ class Client(models.Model):
     patronymic = models.CharField(max_length=150, verbose_name='Отчество', **NULLABLE)
     email = models.EmailField(max_length=254, verbose_name='Электронная почта')
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
-    # owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
     def __str__(self) -> str:
         return f'{self.last_name} {self.first_name} {self.patronymic}'
@@ -24,7 +24,7 @@ class Mail(models.Model):
 
     them_mail = models.CharField(max_length=150, verbose_name='Тема письма')
     body_mail = models.TextField(verbose_name='Тело письма', **NULLABLE)
-    # owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
     def __str__(self) -> str:
         return f'{self.them_mail}'
@@ -58,7 +58,7 @@ class MailingConfig(models.Model):
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, verbose_name='Статус рассылки',
                               default='create')
     is_active = models.BooleanField(default=True, verbose_name='Активация рассылки')
-    # owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
 
     def __str__(self):

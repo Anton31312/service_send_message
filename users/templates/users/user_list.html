@@ -1,0 +1,31 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Почта</th>
+        <th scope="col">Телефон</th>
+        <th scope="col">Активация пользователя</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td>{{ object }}</td>
+          <td>{{ object.phone }}</td>
+          {% if perms.users.set_is_active %}
+            {% if object.is_active %}
+              <td>
+                <a href="{% url 'users:toogle_activity' {{ object.pk }} %}" class="btn btn-warning">Деактивировать</a>
+              </td>
+            {% else %}
+              <td>
+                <a href="{% url 'users:toogle_activity' {{ object.pk }} %}" class="btn btn-success">Активировать</a>
+              </td>
+            {% endif %}
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
