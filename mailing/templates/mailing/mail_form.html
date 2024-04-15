@@ -30,22 +30,6 @@
           <div class="card-footer"></div>
         </div>
       </div>
-
-      <div class="col-6">
-        <div class="card">
-          <div class="card-header text-center">
-            <h3 class="card-title">Данные о рассылке</h3>
-          </div>
-
-          <div class="card-body">
-            {{ formset.management_form }}
-            {% for form in formset.forms %}
-              {{ form.as_p }}
-            {% endfor %}
-          </div>
-          <div class="card-footer"></div>
-        </div>
-      </div>
     </form>
   </div>
 {% endblock %}

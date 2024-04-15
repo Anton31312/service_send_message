@@ -5,7 +5,8 @@
       <tr>
         <th scope="col">Почта</th>
         <th scope="col">Телефон</th>
-        <th scope="col">Активация пользователя</th>
+        <th scope="col">Страна</th>
+        <th scope="col">Активность</th>
       </tr>
     </thead>
     <tbody>
@@ -13,14 +14,15 @@
         <tr>
           <td>{{ object }}</td>
           <td>{{ object.phone }}</td>
+          <td>{{ object.country }}</td>
           {% if perms.users.set_is_active %}
             {% if object.is_active %}
               <td>
-                <a href="{% url 'users:toogle_activity' {{ object.pk }} %}" class="btn btn-warning">Деактивировать</a>
+                <a href="{% url 'users:toogle_activity'  object.pk %}" class="btn btn-warning">Деактивировать</a>
               </td>
             {% else %}
               <td>
-                <a href="{% url 'users:toogle_activity' {{ object.pk }} %}" class="btn btn-success">Активировать</a>
+                <a href="{% url 'users:toogle_activity' object.pk %}" class="btn btn-success">Активировать</a>
               </td>
             {% endif %}
           {% endif %}

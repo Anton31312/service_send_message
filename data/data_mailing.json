@@ -1,0 +1,117 @@
+[
+    {
+        "model": "mailing.client",
+        "pk": 1,
+        "fields": {
+            "last_name": "Петров",
+            "first_name": "Вячеслав",
+            "patronymic": "Вадимович",
+            "email": "petrovvv@gmail.com",
+            "comment": "Вячеслав отличный клиент",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.client",
+        "pk": 2,
+        "fields": {
+            "last_name": "Иванов",
+            "first_name": "Лев",
+            "patronymic": "Аркадьевич",
+            "email": "ivanovla@mail.ru",
+            "comment": "Лев наш постоянный покупатель",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.client",
+        "pk": 3,
+        "fields": {
+            "last_name": "Сидоров",
+            "first_name": "Арсений",
+            "patronymic": "Валерьевич",
+            "email": "sidorov@mail.com",
+            "comment": null,
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.client",
+        "pk": 4,
+        "fields": {
+            "last_name": "Алтуфьев",
+            "first_name": "Алексей",
+            "patronymic": "Юрьевич",
+            "email": "alt@yandex.ru",
+            "comment": "Алексей молодец",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.client",
+        "pk": 5,
+        "fields": {
+            "last_name": "Тест",
+            "first_name": "тест",
+            "patronymic": "тестов",
+            "email": "test@mail.com",
+            "comment": "ввыв",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.mail",
+        "pk": 1,
+        "fields": {
+            "them_mail": "Рассылка о новой продукции",
+            "body_mail": "Только сегодня и только сейчас самые новые товары на свалке!",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.mail",
+        "pk": 2,
+        "fields": {
+            "them_mail": "testt",
+            "body_mail": "teest",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.mail",
+        "pk": 3,
+        "fields": {
+            "them_mail": "Скидки на продукцию 99%",
+            "body_mail": "В эту неделю у нас будет грандиозная распродажа!",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.mail",
+        "pk": 4,
+        "fields": {
+            "them_mail": "Скидки на продукцию 99%",
+            "body_mail": "В эту неделю у нас будет грандиозная распродажа!",
+            "owner": null
+        }
+    },
+    {
+        "model": "mailing.mailingconfig",
+        "pk": 1,
+        "fields": {
+            "name": "Рассылка",
+            "mail": 4,
+            "date_start": "2024-04-13",
+            "date_next": "2024-04-13T15:46:25Z",
+            "date_end": "2024-04-13",
+            "start_time": "15:46:25",
+            "period": "per_day",
+            "status": "create",
+            "is_active": true,
+            "owner": null,
+            "clients": [
+                1
+            ]
+        }
+    }
+]
