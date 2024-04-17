@@ -6,6 +6,7 @@
         <th scope="col">Почта</th>
         <th scope="col">Телефон</th>
         <th scope="col">Страна</th>
+        <th scope="col">Роль</th>
         <th scope="col">Активность</th>
       </tr>
     </thead>
@@ -14,6 +15,14 @@
         <tr>
           <td>{{ object }}</td>
           <td>{{ object.phone }}</td>
+          <td>{{ object.country }}</td>
+          {% if object.is_superuser %}
+            <td>Администратор</td>
+          {% elif object.is_staff %}
+            <td>Менеджер</td>
+          {% else %}
+            <td>Пользователь</td>
+          {% endif %}
           <td>{{ object.country }}</td>
           {% if perms.users.set_is_active %}
             {% if object.is_active %}

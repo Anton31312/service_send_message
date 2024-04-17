@@ -35,6 +35,7 @@ class MailingConfigForm(StyleFormMixin, forms.ModelForm):
         model = MailingConfig
         exclude = ('is_active', )
         fields = '__all__'
+        
 
         widgets = {
             'start_date': forms.DateTimeInput(attrs={'placeholder': 'ДД.ММ.ГГГГ ЧЧ:ММ:СС', 'type': 'datetime-local'}),

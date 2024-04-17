@@ -1,52 +1,50 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
+<header class="py-2 bg-body-tertiary border-bottom navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'mailing:index' %}">FasterMailing</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a class="navbar-brand text-white" href="{% url 'mailing:index' %}">FasterMailing</a>
 
-    <div class="collapse navbar-collapse" id="navbarsExample07">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'mailing:index' %}">Главная</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'blog:article_list' %}" class="nav-link">Блог</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'mailing:contacts' %}" class="nav-link">Контакты</a>
-        </li>
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'mailing:index' %}" class="nav-link px-2 text-white">Главная</a></li>
+        <li><a href="{% url 'blog:article_list' %}" class="nav-link px-2 text-white">Блог</a></li>
+        <li><a href="{% url 'mailing:contacts' %}" class="nav-link px-2 text-white">Контакты</a></li>
         {% if user.is_authenticated %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Возможности</a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="{% url 'mailing:client' %}" class="dropdown-item">Клиенты</a>
-              </li>
-              <li>
-                <a href="{% url 'mailing:mail' %}" class="dropdown-item">Сообщения для рассылки</a>
-              </li>
-              <li>
-                <a href="{% url 'mailing:mailing_config' %}" class="dropdown-item">Рассылки</a>
-              </li>
-            </ul>
-          </li>
-        {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link px-2 text-white dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Возможности</a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{% url 'mailing:client' %}" class="dropdown-item">Клиенты</a>
+            </li>
+            <li>
+              <a href="{% url 'mailing:mail' %}" class="dropdown-item">Сообщения для рассылки</a>
+            </li>
+            <li>
+              <a href="{% url 'mailing:mailing_config' %}" class="dropdown-item">Рассылки</a>
+            </li>
+          </ul>
+        </li>
+      {% endif %}
       </ul>
-      <div class="btn-group mb-2">
+
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+      </form>
+
+      <div class="btn-group">
         {% if perms.users.set_is_active %}
-          <a class="btn btn-outline-primary" href="{% url 'users:list_view' %}">Пользователи</a>
+          <a class="p-2 btn btn-dark" href="{% url 'users:list_view' %}">Пользователи</a>
         {% endif %}
 
         {% if user.is_authenticated %}
-          <a class="p-2 btn btn-outline-primary" href="{% url 'users:profile' %}">Профиль</a>
+          <a class="p-2 btn btn-dark" href="{% url 'users:profile' %}">Профиль</a>
           <form method="post" action="{% url 'users:logout' %}">
             {% csrf_token %}
-            <button class="p-2 btn btn-outline-primary" type="submit">Выйти</button>
+            <button class="p-2 btn btn-primary" type="submit">Выйти</button>
           </form>
         {% else %}
-          <a class="btn btn-dark" href="{% url 'users:login' %}">Войти</a>
-          <a class="btn btn-primary" href="{% url 'users:register' %}">Регистрация</a>
+          <a class="p-2 btn btn-dark" href="{% url 'users:login' %}">Войти</a>
+          <a class="p-2 btn btn-primary" href="{% url 'users:register' %}">Регистрация</a>
         {% endif %}
       </div>
     </div>
   </div>
-</nav>
+</header>
