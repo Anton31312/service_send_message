@@ -53,7 +53,7 @@ class ClientListView(LoginRequiredMixin, ListView):
     }
 
     def get_queryset(self, **kwargs):
-        if self.request.user.is_superuser or self.request.user.is_staff:
+        if self.request.user.is_superuser:
             return models.Client.objects.all()
         return models.Client.objects.filter(owner=self.request.user)
 
@@ -126,14 +126,13 @@ class MailingConfigListView(LoginRequiredMixin, ListView):
         if self.request.user.is_superuser or self.request.user.is_staff:
             return models.MailingConfig.objects.all()
         p_view_mail = Permission.objects.get(codename='mailing_config_detail')
-        p_change_mail = Permission.objects.get(codename='change_mail')
+        p_change_mail = Permission.objects.get(codename='update_mailing_config')
         p_delete_mail = Permission.objects.get(codename='delete_mailing_config')
         self.request.user.user_permissions.set([p_view_mail, p_change_mail, p_delete_mail])
         return models.MailingConfig.objects.filter(owner=self.request.user)
 
-class MailingConfigDetailView(PermissionRequiredMixin, DetailView):
+class MailingConfigDetailView(DetailView):
     model = models.MailingConfig
-    permission_required = 'mailing.mailing_config_detail'
 
 class MailingConfigCreateView(CreateView):
     model = models.MailingConfig

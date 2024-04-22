@@ -1,42 +1,78 @@
 {% extends 'mailing/base.html' %}
 
 {% block content %}
+
   <div class="col-12 mb-5">
+    {% if user.is_superuser %}
     <a class="btn btn-outline-primary" href="{% url 'mailing:create_mailing_config' %}">Добавить рассылку</a>
+    {% endif %}
   </div>
   {% for object in object_list %} 
     <div class="col-5">
       <div class="card mb-4 shadow-sm">
         <div class="card-header text-center">
-          <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+          <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
         </div>
 
         <div class="card-body">
-          <p class="card-text">{{ object.clients }}</p>
-          <p class="card-text">{{ object.date_start }}</p>
+          <p class="card-text">
+            Кому:
+            <ul>
+              {% for value in object.clients.all.values_list %}
+                <li>{{value.1}}</li>
+              {% endfor %}
+            </ul>
+          </p>
+
+          <p class="card-text">Сообщение: {{object.mail}}</p>
+
+          <p class="card-text">Дата начала: {{ object.date_start }}</p>
 
           {% if object.period == "per_day" %}
-            <p class="card-text">раз в день</p>
+            <p class="card-text">Период: раз в день</p>
           {% elif object.period == "per_week" %}
-            <p class="card-text">раз в неделю</p>
+            <p class="card-text">Период: раз в неделю</p>
           {% elif object.period == "per_month" %}
-            <p class="card-text">раз в месяц</p>
+            <p class="card-text">Период: раз в месяц</p>
           {% endif %}
           
           {% if object.status == "create" %}
-            <p class="card-text">создана</p>
+            <p class="card-text">Статус: создана</p>
           {% elif object.status == "complete" %}
-            <p class="card-text">завершена</p>
+            <p class="card-text">Статус: завершена</p>
           {% elif object.status == "extend" %}
-            <p class="card-text">запущена</p>
+            <p class="card-text">Статус: запущена</p>
           {% endif %}
+
+          {% if user.is_staff or user.is_superuser%}
+            <p class="card-text">Владелец: {{object.owner}}</p>
+            <p class="card-text">
+              {% if object.is_active %}
+                Активация рассылки: Активна
+              {% else %}
+              Активация рассылки: Не активна
+              {% endif %}
+            </p>
+          {% endif %}
+
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:mailing_config_detail' object.pk %}">Просмотр</a>
-              <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:update_mailing_config' object.pk  %}">Изменить</a>
-              <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-danger" href="{% url 'mailing:delete_mailing_config' object.pk %}">Удалить</a>
+              {% if user.is_superuser %}
+                <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:update_mailing_config' object.pk  %}">Изменить</a>
+                <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-danger" href="{% url 'mailing:delete_mailing_config' object.pk %}">Удалить</a>
+              {% endif %}
             </div>
           </div>
+        </div>
+        <div class="card-footer">
+          {% if perms.mailing.set_is_active %}
+            {% if object.is_active %}
+              <a href="{% url 'mailing:toogle_activity' object.pk %}" class="btn btn-warning">Деактивировать</a>
+            {% else %}
+              <a href="{% url 'mailing:toogle_activity' object.pk %}" class="btn btn-success">Активировать</a>
+            {% endif %}
+          {% endif %}
         </div>
       </div>
     </div>

@@ -4,15 +4,45 @@
   <div class="col-12 form-control">
     <div class="card box-shadow">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+        <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
       </div>
       <div class="card-body">
-        <p class="list-unstyled mt-3 mb-4 text-start m-3">
-          Клиент участвующие в рассылке: {{ object.clients }}
-          Дата начала: {{ object.date_start }}
-          Период: {{ object.period }}
-          Статус рассылки: {{ object.status }}
+        <p class="card-text">Клиент участвующие в рассылке::
+          <ul>
+              {% for value in object.clients.all.values_list %}
+               <li>{{value.1 }}</li>
+              {% endfor%}
+          </ul>
         </p>
+        <p class="card-text">Дата начала: {{ object.date_start }}</p>
+        <p class="card-text">Сообщение: {{ object.mail.body_mail }}</p>
+          {% if object.period == "per_day" %}
+            <p class="card-text">Период: раз в день</p>
+          {% elif object.period == "per_week" %}
+            <p class="card-text">Период: раз в неделю</p>
+          {% elif object.period == "per_month" %}
+            <p class="card-text">Период: раз в месяц</p>
+          {% endif %}
+
+          {% if object.status == "create" %}
+            <p class="card-text">Статус: создана</p>
+          {% elif object.status == "complete" %}
+            <p class="card-text">Статус: завершена</p>
+          {% elif object.status == "extend" %}
+            <p class="card-text">Статус: запущена</p>
+          {% endif %}
+
+          {% if user.is_staff or user.is_superuser%}
+            <p class="card-text">Владелец: {{object.owner}}</p>
+            <p class="card-text">
+              {% if object.is_active %}
+                Активация рассылки: Активна
+              {% else %}
+              Активация рассылки: Не активна
+              {% endif %}
+            </p>
+          {% endif %}
+        
         <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'mailing:mailing_config' %}">Назад к списку рассылок</a>
       </div>
     </div>

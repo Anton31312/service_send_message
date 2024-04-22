@@ -2,7 +2,9 @@
 
 {% block content %}
   <div class="col-12 mb-5">
+    {% if user.is_superuser %}
     <a class="btn btn-outline-primary" href="{% url 'mailing:create_mail' %}">Добавить сообщение</a>
+    {% endif %}
   </div>
   {% for object in object_list %}
     <div class="col-5">
@@ -16,8 +18,10 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:mail_detail' object.pk %}">Просмотр</a>
+              {% if user.is_superuser %}
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:update_mail' object.pk  %}">Изменить</a>
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-danger" href="{% url 'mailing:delete_mail' object.pk %}">Удалить</a>
+              {% endif %}
             </div>
           </div>
         </div>
