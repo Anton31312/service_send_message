@@ -8,7 +8,7 @@ from django.contrib.auth.models import Permission
 
 from mailing import models
 from mailing.forms import ClientForm, MailForm, MailingConfigForm
-from mailing.runapscheduler import get_cache_for_mailings
+from mailing.services import get_cache_for_mailings
 
 from blog.models import Article
 

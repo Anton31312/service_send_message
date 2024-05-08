@@ -60,6 +60,42 @@
         }
     },
     {
+        "model": "mailing.client",
+        "pk": 6,
+        "fields": {
+            "last_name": "Новый",
+            "first_name": "Клиент",
+            "patronymic": "Клиентов",
+            "email": "client@mail.ru",
+            "comment": "Клиент для теста клиентуры",
+            "owner": 1
+        }
+    },
+    {
+        "model": "mailing.client",
+        "pk": 7,
+        "fields": {
+            "last_name": "Иванов",
+            "first_name": "Сергей",
+            "patronymic": "Андреевич",
+            "email": "iva_seran@yandex.ru",
+            "comment": "",
+            "owner": 2
+        }
+    },
+    {
+        "model": "mailing.client",
+        "pk": 8,
+        "fields": {
+            "last_name": "Русаков",
+            "first_name": "Петр",
+            "patronymic": "Максимович",
+            "email": "max@mail.ru",
+            "comment": "",
+            "owner": 2
+        }
+    },
+    {
         "model": "mailing.mail",
         "pk": 1,
         "fields": {
@@ -96,11 +132,20 @@
         }
     },
     {
+        "model": "mailing.mail",
+        "pk": 5,
+        "fields": {
+            "them_mail": "Распродажа уценки",
+            "body_mail": "Все товары с браком упаковки уценены на 30%",
+            "owner": 1
+        }
+    },
+    {
         "model": "mailing.mailingconfig",
         "pk": 1,
         "fields": {
             "name": "Рассылка",
-            "mail": 4,
+            "mail": 5,
             "date_start": "2024-04-13",
             "date_next": "2024-04-13T15:46:25Z",
             "date_end": "2024-04-13",
@@ -110,7 +155,26 @@
             "is_active": true,
             "owner": null,
             "clients": [
-                1
+                6
+            ]
+        }
+    },
+    {
+        "model": "mailing.mailingconfig",
+        "pk": 2,
+        "fields": {
+            "name": "Рассылка",
+            "mail": 5,
+            "date_start": "2024-04-22",
+            "date_next": "2024-04-22T19:03:32Z",
+            "date_end": "2024-04-22",
+            "start_time": "19:03:32",
+            "period": "per_day",
+            "status": "create",
+            "is_active": true,
+            "owner": 1,
+            "clients": [
+                6
             ]
         }
     }
