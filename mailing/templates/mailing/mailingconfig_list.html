@@ -3,9 +3,7 @@
 {% block content %}
 
   <div class="col-12 mb-5">
-    {% if user.is_superuser %}
     <a class="btn btn-outline-primary" href="{% url 'mailing:create_mailing_config' %}">Добавить рассылку</a>
-    {% endif %}
   </div>
   {% for object in object_list %} 
     <div class="col-5">

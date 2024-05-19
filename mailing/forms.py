@@ -33,7 +33,7 @@ class MailingConfigForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = MailingConfig
-        exclude = ('is_active', )
+        exclude = ('is_active', 'owner',)
         fields = '__all__'
         
 

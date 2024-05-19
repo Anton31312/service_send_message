@@ -18,7 +18,9 @@
               <a href="{% url 'mailing:mail' %}" class="dropdown-item">Сообщения для рассылки</a>
             </li>
             <li>
-              <a href="{% url 'mailing:mailing_config' %}" class="dropdown-item">Рассылки</a>
+              {% if user.is_staff or user.is_superuser %}
+                <a href="{% url 'mailing:mailing_config' %}" class="dropdown-item">Рассылки</a>
+              {% endif %} 
             </li>
           </ul>
         </li>

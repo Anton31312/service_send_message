@@ -15,19 +15,19 @@ def my_job():
     weak = timedelta(days=7, hours=0, minutes=0)
     month = timedelta(days=30, hours=0, minutes=0)
 
-    mails = MailingConfig.objects.all().filter(status='create') \
+    mails_conf = MailingConfig.objects.all().filter(status='create') \
         .filter(is_active=True) \
         .filter(date_next__lte=datetime.now(pytz.timezone('Europe/Moscow'))) \
         .filter(date_end__gte=datetime.now(pytz.timezone('Europe/Moscow')))
 
-    for mail in mails:
-        mail.status = 'запущена'
-        mail.save()
-        emails_list = [client.email for client in mail.clients.all()]
+    for mail_conf in mails_conf:
+        mail_conf.status = 'запущена'
+        mail_conf.save()
+        emails_list = [client.email for client in mail_conf.clients.all()]
 
         result = send_mail(
-            subject=mail.message.title,
-            message=mail.message.body,
+            subject=mail_conf.mail.title,
+            message=mail_conf.mail.body,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=emails_list,
             fail_silently=False,
@@ -38,21 +38,21 @@ def my_job():
         else:
             status = 'Error sending'
 
-        log = TryMailing(mail=mail, status=status)
+        log = TryMailing(mail=mail_conf, status=status)
         log.save()
 
-        if mail.interval == 'per_day':
-            mail.next_date = log.last_time_mail + day
-        elif mail.interval == 'per_week':
-            mail.next_date = log.last_time_mail+ weak
-        elif mail.interval == 'per_month':
-            mail.next_date = log.last_time_mail + month
+        if mail_conf.period == 'per_day':
+            mail_conf.date_next = log.date_last_try + day
+        elif mail_conf.period == 'per_week':
+            mail_conf.date_next = log.date_last_try + weak
+        elif mail_conf.period == 'per_month':
+            mail_conf.date_next = log.date_last_try + month
 
-        if mail.next_date < mail.end_date:
-            mail.status = 'create'
+        if mail_conf.date_next < mail_conf.date_end:
+            mail_conf.status = 'create'
         else:
-            mail.status = 'extend'
-        mail.save()
+            mail_conf.status = 'extend'
+        mail_conf.save()
 
 def get_cache_for_mailings():
     if settings.CACHE_ENABLED:
@@ -87,7 +87,7 @@ def send_mailing():
 
                     log = TryMailing.objects.create(
                         date=mailing.time_start,
-                        status=TryMailing.SENT,
+                        status=TryMailing.SEND,
                         mailing=mailing,
                         client=client
                     )
