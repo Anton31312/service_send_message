@@ -17,9 +17,7 @@
             <div class="btn-group">
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:mail_detail' object.pk %}">Просмотр</a>
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-primary" href="{% url 'mailing:update_mail' object.pk  %}">Изменить</a>
-              {% if user.is_superuser %}
               <a class="btn btn-lg mt-2 mb-2 btn-block btn-outline-danger" href="{% url 'mailing:delete_mail' object.pk %}">Удалить</a>
-              {% endif %}
             </div>
           </div>
         </div>

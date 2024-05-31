@@ -70,24 +70,24 @@ def send_mailing():
     mailing_list = MailingConfig.objects.all()
     for mailing in mailing_list:
         if mailing.date_end < current_time:
-            mailing.status = MailingConfig.DONE
+            mailing.status = MailingConfig.STATUS_CHOICES['complete']
             continue
-        if mailing.time_start <= current_time < mailing.date_end:
-            mailing.status = MailingConfig.STARTED
+        if mailing.start_time <= current_time < mailing.date_end:
+            mailing.status = MailingConfig.STATUS_CHOICES['extend']
             mailing.save()
-            for client in mailing.client.all():
+            for client in mailing.clients.all():
                 try:
                     send_mail(
-                        subject=mailing.message.title,
-                        message=mailing.message.body,
+                        subject=mailing.mail.them_mail,
+                        message=mailing.mail.body_mail,
                         from_email=settings.EMAIL_HOST_USER,
                         recipient_list=[client.email],
                         fail_silently=False
                     )
 
                     log = TryMailing.objects.create(
-                        date=mailing.time_start,
-                        status=TryMailing.SEND,
+                        date=mailing.start_time,
+                        status="SEND",
                         mailing=mailing,
                         client=client
                     )
@@ -96,8 +96,8 @@ def send_mailing():
 
                 except SMTPException as error:
                     log = TryMailing.objects.create(
-                        date=mailing.time_start,
-                        status=TryMailing.FAILED,
+                        date=mailing.start_time,
+                        status="FAILED",
                         mailling=mailing,
                         client=client,
                         response=error
@@ -107,5 +107,5 @@ def send_mailing():
                     return log
 
         else:
-            mailing.status = MailingConfig.DONE
+            mailing.status = MailingConfig.STATUS_CHOICES['complete']
             mailing.save()
