@@ -23,7 +23,7 @@
           {% else %}
             <td>Пользователь</td>
           {% endif %}
-          {% if perms.users.set_is_active and perms.users.pk != object.pk %}
+          {% if perms.users.set_is_active and user.pk != object.pk %}
             {% if object.is_active %}
               <td>
                 <a href="{% url 'users:toogle_activity'  object.pk %}" class="btn btn-warning">Деактивировать</a>
